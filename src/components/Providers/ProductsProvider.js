@@ -1,12 +1,12 @@
 import React, { useContext, useReducer } from "react";
-
+import { productsData } from "../../db/products";
 const ProductContext = React.createContext();
 const ProductContextDispatcher = React.createContext();
-const initialState = [
+/* const initialState = [
   { name: "React.js", price: "99 $", id: 1, quantity: 1 },
   { name: "Node.js", price: "69 $", id: 2, quantity: 2 },
   { name: "Veu.js", price: "59 $", id: 3, quantity: 3 },
-];
+]; */
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -47,14 +47,48 @@ const reducer = (state, action) => {
     case "remove":
       const filteredProducts = state.filter((p) => p.id !== action.id);
       return filteredProducts;
-
+    case "filter":
+      /* console.log(`clicked-->${action.event.target.value}`); */
+      if (action.selectedOption.value === "") {
+        return productsData;
+      } else {
+        const UpdatedProducts = productsData.filter(
+          (p) => p.availableSizes.indexOf(action.selectedOption.value) >= 0
+        );
+        return UpdatedProducts;
+      }
+    case "sort":
+      const products = [...state];
+      if (action.selectedOption.value === "lowest") {
+        const sortedProducts = products.sort((a, b) => {
+          if (a.price > b.price) {
+            return 1;
+          }
+          if (a.price < b.price) {
+            return -1;
+          }
+          return 0;
+        });
+        return sortedProducts;
+      } else {
+        const sortedProducts = products.sort((a, b) => {
+          if (a.price < b.price) {
+            return 1;
+          }
+          if (a.price > b.price) {
+            return -1;
+          }
+          return 0;
+        });
+        return sortedProducts;
+      }
     default:
       return state;
   }
 };
 
 const ProductsProvider = ({ children }) => {
-  const [products, dispatch] = useReducer(reducer, initialState);
+  const [products, dispatch] = useReducer(reducer, productsData);
 
   return (
     <ProductContext.Provider value={products}>

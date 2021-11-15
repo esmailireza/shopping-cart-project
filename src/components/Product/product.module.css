@@ -1,9 +1,9 @@
 .product {
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 20px 40px;
+  padding: 30px 40px;
   display: flex;
-  width: 40rem;
+  width: 50rem;
   margin-top: 15px;
   justify-content: space-around;
   box-shadow: 0 10px 80px rgba(0, 0, 0, 0.065);

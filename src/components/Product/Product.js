@@ -1,16 +1,15 @@
-import { useState } from "react";
 import styles from "./product.module.css";
 import { BiTrash } from "react-icons/bi";
 const Product = ({ product, change, onDecrement, onIncrement, click }) => {
   return (
     <div className={styles.product}>
-      <p>name: {product.name} course</p>
+      <p>name: {product.title} course</p>
       <p>price: {product.price} </p>
 
       <input
         type="text"
         onChange={change}
-        value={product.name}
+        value={product.title}
         className={styles.input}
       />
       <span className={styles.value}>{product.quantity}</span>
