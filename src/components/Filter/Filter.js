@@ -2,6 +2,7 @@ import { useState } from "react/cjs/react.development";
 import { useProductsActions } from "../Providers/ProductsProvider";
 import Select from "react-select";
 import styles from "./filter.module.css";
+import _ from "lodash";
 
 const options = [
   { value: "", label: "ALL" },

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useContext, useReducer } from "react";
 import { productsData } from "../../db/products";
 const ProductContext = React.createContext();
@@ -60,27 +61,9 @@ const reducer = (state, action) => {
     case "sort":
       const products = [...state];
       if (action.selectedOption.value === "lowest") {
-        const sortedProducts = products.sort((a, b) => {
-          if (a.price > b.price) {
-            return 1;
-          }
-          if (a.price < b.price) {
-            return -1;
-          }
-          return 0;
-        });
-        return sortedProducts;
+        return _.orderBy(products, ["price"], ["asc"]);
       } else {
-        const sortedProducts = products.sort((a, b) => {
-          if (a.price < b.price) {
-            return 1;
-          }
-          if (a.price > b.price) {
-            return -1;
-          }
-          return 0;
-        });
-        return sortedProducts;
+        return _.orderBy(products, ["price"], ["desc"]);
       }
     default:
       return state;
