@@ -1,10 +1,12 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import styles from "./search.module.css";
-const SearchBar = () => {
-  const [value, setValue] = useState("");
+import { useProductsActions } from "../../components/Providers/ProductsProvider";
 
+const SearchBar = () => {
+  const dispatch = useProductsActions();
+  const [value, setValue] = useState("");
   const changeHandler = (e) => {
-    console.log(e.target.value);
+    dispatch({ type: "search", event: e });
     setValue(e.target.value);
   };
   return (

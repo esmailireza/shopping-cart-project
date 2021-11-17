@@ -48,7 +48,7 @@ const reducer = (state, action) => {
     case "remove":
       const filteredProducts = state.filter((p) => p.id !== action.id);
       return filteredProducts;
-    case "filter":
+    case "filter": {
       /* console.log(`clicked-->${action.event.target.value}`); */
       if (action.selectedOption.value === "") {
         return productsData;
@@ -58,13 +58,31 @@ const reducer = (state, action) => {
         );
         return UpdatedProducts;
       }
-    case "sort":
+    }
+
+    case "sort": {
       const products = [...state];
       if (action.selectedOption.value === "lowest") {
         return _.orderBy(products, ["price"], ["asc"]);
       } else {
         return _.orderBy(products, ["price"], ["desc"]);
       }
+    }
+
+    case "search": {
+      /* console.log(`clicked-->${action.event.target.value}`); */
+      if (action.event.target.value === "") {
+        return productsData;
+      } else {
+        const filteredProducts = productsData.filter((p) =>
+          p.title
+            .toLowerCase()
+            .includes(action.event.target.value.toLowerCase())
+        );
+        return filteredProducts;
+      }
+    }
+
     default:
       return state;
   }
