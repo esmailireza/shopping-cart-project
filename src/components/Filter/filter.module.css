@@ -5,17 +5,3 @@
   align-items: center;
   margin: 20px 0px;
 }
-
-.select {
-  width: 200px;
-}
-
-.selectContainer {
-  display: flex;
-  align-items: center;
-}
-
-.selectContainer span {
-  display: block;
-  margin-right: 1rem;
-}

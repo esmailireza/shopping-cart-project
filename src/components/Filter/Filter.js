@@ -3,8 +3,10 @@ import { useProductsActions } from "../Providers/ProductsProvider";
 import Select from "react-select";
 import styles from "./filter.module.css";
 import _ from "lodash";
+import SelectComponent from "../../common/Select/Select";
+import SearchBar from "../../common/Search/Search";
 
-const options = [
+const filterOptions = [
   { value: "", label: "ALL" },
   { value: "XS", label: "XS" },
   { value: "S", label: "S" },
@@ -21,44 +23,38 @@ const sortOptions = [
 
 const Filter = () => {
   const dispatch = useProductsActions();
-  const [value, setValue] = useState("");
+  const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
 
-  const changeHandler = (selectedOption) => {
-    dispatch({ type: "filter", selectedOption: selectedOption });
-    dispatch({ type: "sort", selectedOption: selectedOption });
-    console.log(selectedOption);
-    setValue(selectedOption);
+  const filterHandler = (selectedOption) => {
+    dispatch({ type: "filter", selectedOption });
+    dispatch({ type: "sort", selectedOption: sort });
+    setFilter(selectedOption);
   };
 
   const sortHandler = (selectedOption) => {
-    /* console.log(selectedOption); */
-    dispatch({ type: "sort", selectedOption: selectedOption });
-    setSort(selectedOption.sort);
+    dispatch({ type: "sort", selectedOption });
+    setSort(selectedOption);
   };
   return (
-    <div className={styles.filter}>
-      <p>filter products pased on:</p>
-      <div className={styles.selectContainer}>
-        <span>order by</span>
-        <Select
-          value={value}
-          onChange={changeHandler}
-          options={options}
-          className={styles.select}
+    <section>
+      <SearchBar filter={filter} />
+      <div className={styles.filter}>
+        <p>filter products pased on:</p>
+        <SelectComponent
+          title="filter by size"
+          value={filter}
+          onChange={filterHandler}
+          options={filterOptions}
         />
-
-        <div className={styles.selectContainer}>
-          <span>sort by</span>
-          <Select
-            value={sort}
-            onChange={sortHandler}
-            options={sortOptions}
-            className={styles.select}
-          />
-        </div>
+        <SelectComponent
+          title="sort by price"
+          value={sort}
+          onChange={sortHandler}
+          options={sortOptions}
+        />
       </div>
-    </div>
+    </section>
   );
 };
 

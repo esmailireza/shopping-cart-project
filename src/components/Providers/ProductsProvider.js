@@ -3,11 +3,6 @@ import React, { useContext, useReducer } from "react";
 import { productsData } from "../../db/products";
 const ProductContext = React.createContext();
 const ProductContextDispatcher = React.createContext();
-/* const initialState = [
-  { name: "React.js", price: "99 $", id: 1, quantity: 1 },
-  { name: "Node.js", price: "69 $", id: 2, quantity: 2 },
-  { name: "Veu.js", price: "59 $", id: 3, quantity: 3 },
-]; */
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -72,9 +67,9 @@ const reducer = (state, action) => {
     case "search": {
       /* console.log(`clicked-->${action.event.target.value}`); */
       if (action.event.target.value === "") {
-        return productsData;
+        return state;
       } else {
-        const filteredProducts = productsData.filter((p) =>
+        const filteredProducts = state.filter((p) =>
           p.title
             .toLowerCase()
             .includes(action.event.target.value.toLowerCase())
