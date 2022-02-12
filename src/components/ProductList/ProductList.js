@@ -13,6 +13,7 @@ const ProductList = (props) => {
       {products.map((product) => {
         return (
           <Product
+            key={product.id}
             product={product}
             click={() => dispatch({ type: "remove", id: product.id })}
             onIncrement={() => dispatch({ type: "increment", id: product.id })}
