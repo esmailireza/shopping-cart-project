@@ -1,6 +1,8 @@
 import { useState } from "react/cjs/react.development";
 import { useProductsActions } from "../Providers/ProductsProvider";
+import Select from "react-select";
 import styles from "./filter.module.css";
+import _ from "lodash";
 import SelectComponent from "../../common/Select/Select";
 import SearchBar from "../../common/Search/Search";
 
